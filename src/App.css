@@ -69,6 +69,15 @@ body {
   }
 }
 
+a {
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+a:hover {
+  color: var(--bg-button);
+}
+
 /*------------------------- MEDIA QUERIES -------------------------*/
 .container {
   width: var(--container-sm);
@@ -98,8 +107,17 @@ body {
 /*------------------------- BUTTON -------------------------*/
 .button {
   background-color: var(--bg-button);
-  padding: 12px 16px;
-  height: 40px;
+  padding: 8px 24px;
   border-radius: 8px;
   color: var(--text-white);
+}
+
+.icon {
+  background-color: transparent;
+  height: 24px;
+  width: 24px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
