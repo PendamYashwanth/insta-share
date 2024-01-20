@@ -9,6 +9,8 @@ import {FaSearch} from 'react-icons/fa'
 import './index.css'
 
 class Header extends Component {
+  state = {displayNavMenu: false}
+
   /* ----------------------------EVENT HANDLERS---------------------------------------- */
   onClickLogout = () => {
     const {history} = this.props
@@ -16,12 +18,25 @@ class Header extends Component {
     history.replace('/login')
   }
 
-  onClickMenuIcon = () => {}
+  onClickMenuIcon = () => {
+    this.setState(prevState => ({
+      displayNavMenu: !prevState.displayNavMenu,
+    }))
+  }
+
+  onClickCloseIcon = () => {
+    this.setState({displayNavMenu: false})
+  }
 
   /* ----------------------------------------------------------------------------- */
 
   renderMenuIcon = () => (
-    <button type="button" label="menu" className="icon menu-icon">
+    <button
+      type="button"
+      label="menu"
+      className="icon menu-icon"
+      onClick={this.onClickMenuIcon}
+    >
       <GiHamburgerMenu />
     </button>
   )
@@ -66,7 +81,12 @@ class Header extends Component {
           </ul>
         </nav>
 
-        <button type="button" label="close" className="icon">
+        <button
+          type="button"
+          label="close"
+          className="icon"
+          onClick={this.onClickCloseIcon}
+        >
           <IoIosCloseCircle />
         </button>
       </article>
@@ -115,6 +135,7 @@ class Header extends Component {
   }
 
   render() {
+    const {displayNavMenu} = this.state
     return (
       <header className="page-header">
         <section className="container header-responsive-container">
@@ -130,7 +151,7 @@ class Header extends Component {
             {this.renderNavForLgDev()}
           </section>
         </section>
-        {this.renderNavForSmDev()}
+        {displayNavMenu && this.renderNavForSmDev()}
       </header>
     )
   }
