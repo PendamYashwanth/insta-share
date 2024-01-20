@@ -1,10 +1,22 @@
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
+import Cookies from 'js-cookie'
+
 import {GiHamburgerMenu} from 'react-icons/gi'
 import {IoIosCloseCircle} from 'react-icons/io'
 import {FaSearch} from 'react-icons/fa'
+
 import './index.css'
 
-const Header = () => {
+const Header = props => {
+  /* ----------------------------EVENT HANDLERS---------------------------------------- */
+  const onClickLogout = () => {
+    const {history} = props
+    Cookies.remove('jwt_token')
+    history.replace('/login')
+  }
+
+  /* ----------------------------------------------------------------------------- */
+
   const renderMenuIcon = () => (
     <button type="button" label="menu" className="icon menu-icon">
       <GiHamburgerMenu />
@@ -39,7 +51,12 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <button type="button" label="logout" className="button">
+              <button
+                type="button"
+                label="logout"
+                className="button"
+                onClick={onClickLogout}
+              >
                 Logout
               </button>
             </li>
@@ -82,7 +99,12 @@ const Header = () => {
             </ul>
           </nav>
         </section>
-        <button type="button" label="logout" className="button">
+        <button
+          type="button"
+          label="logout"
+          className="button"
+          onClick={onClickLogout}
+        >
           Logout
         </button>
       </section>
@@ -109,4 +131,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default withRouter(Header)
