@@ -1,3 +1,4 @@
+import {Component} from 'react'
 import {Link, withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 
@@ -7,23 +8,25 @@ import {FaSearch} from 'react-icons/fa'
 
 import './index.css'
 
-const Header = props => {
+class Header extends Component {
   /* ----------------------------EVENT HANDLERS---------------------------------------- */
-  const onClickLogout = () => {
-    const {history} = props
+  onClickLogout = () => {
+    const {history} = this.props
     Cookies.remove('jwt_token')
     history.replace('/login')
   }
 
+  onClickMenuIcon = () => {}
+
   /* ----------------------------------------------------------------------------- */
 
-  const renderMenuIcon = () => (
+  renderMenuIcon = () => (
     <button type="button" label="menu" className="icon menu-icon">
       <GiHamburgerMenu />
     </button>
   )
 
-  const renderNavForSmDev = () => {
+  renderNavForSmDev = () => {
     const path = window.location.pathname
     return (
       <article className="nav-container-sm">
@@ -55,7 +58,7 @@ const Header = props => {
                 type="button"
                 label="logout"
                 className="button"
-                onClick={onClickLogout}
+                onClick={this.onClickLogout}
               >
                 Logout
               </button>
@@ -70,7 +73,7 @@ const Header = props => {
     )
   }
 
-  const renderNavForLgDev = () => {
+  renderNavForLgDev = () => {
     const path = window.location.pathname
     return (
       <section className="nav-container-lg">
@@ -103,7 +106,7 @@ const Header = props => {
           type="button"
           label="logout"
           className="button"
-          onClick={onClickLogout}
+          onClick={this.onClickLogout}
         >
           Logout
         </button>
@@ -111,24 +114,26 @@ const Header = props => {
     )
   }
 
-  return (
-    <header className="page-header">
-      <section className="container header-responsive-container">
-        <section className="header-logo-container">
-          <img
-            src="https://res.cloudinary.com/dhaj9wlmu/image/upload/v1698744357/Standard_Collection_8_xfka3j.svg"
-            alt="website logo"
-          />
-          <h1>Insta Share</h1>
+  render() {
+    return (
+      <header className="page-header">
+        <section className="container header-responsive-container">
+          <section className="header-logo-container">
+            <img
+              src="https://res.cloudinary.com/dhaj9wlmu/image/upload/v1698744357/Standard_Collection_8_xfka3j.svg"
+              alt="website logo"
+            />
+            <h1>Insta Share</h1>
+          </section>
+          <section>
+            {this.renderMenuIcon()}
+            {this.renderNavForLgDev()}
+          </section>
         </section>
-        <section>
-          {renderMenuIcon()}
-          {renderNavForLgDev()}
-        </section>
-      </section>
-      {renderNavForSmDev()}
-    </header>
-  )
+        {this.renderNavForSmDev()}
+      </header>
+    )
+  }
 }
 
 export default withRouter(Header)
